@@ -20,5 +20,3 @@ Same pattern as the SCORE MORE system (`pb-digital-dev/scoremore`):
 
 `.env` (gitignored) needs: DB_USER/DB_PASSWORD (user `ffwc`), SESSION_SECRET,
 MEDIA_SIGNING_SECRET, BASE_PATH, CONTENT_ROOT. Backup at `../.env.backup`.
-
-_Deploy pipeline verified 2026-07-05T23:32Z_
