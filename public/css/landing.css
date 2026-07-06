@@ -14,14 +14,20 @@
 .nav-links a:hover { color: var(--gold); }
 .nav .btn { padding: 0.55rem 1.1rem; font-size: 0.92rem; }
 
-/* Hero */
+/* Hero — stadium/player photo on the right, text over the dark left side.
+   The base gradient underneath keeps the hero presentable if the photo is
+   missing (e.g. before public/img/hero-player.jpg is committed). */
 .hero {
   background:
-    radial-gradient(1100px 480px at 82% 20%, rgba(30, 107, 59, 0.55) 0%, rgba(10, 36, 21, 0) 60%),
+    linear-gradient(90deg, rgba(10, 36, 21, 0.92) 0%, rgba(10, 36, 21, 0.78) 40%,
+      rgba(10, 36, 21, 0.25) 68%, rgba(10, 36, 21, 0.05) 100%),
+    url('../img/hero-player.jpg') right center / cover no-repeat,
     linear-gradient(115deg, var(--green-950) 0%, var(--green-900) 55%, var(--green-800) 100%);
-  color: #fff; padding: 3.6rem 0 3rem; overflow: hidden;
+  color: #fff; padding: 4.2rem 0 3.6rem; overflow: hidden; min-height: 460px;
+  display: flex; align-items: center;
 }
-.hero-grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2.5rem; align-items: center; }
+.hero .container { width: 100%; }
+.hero-inner { max-width: 58%; }
 .badge {
   display: inline-flex; align-items: center; gap: 0.45rem;
   background: rgba(245, 180, 30, 0.14); border: 1px solid rgba(245, 180, 30, 0.5);
@@ -37,18 +43,6 @@
 .trust b { display: block; font-size: 0.86rem; letter-spacing: 0.02em; }
 .trust span { font-size: 0.78rem; color: #b9cbbf; }
 
-.hero-book { text-align: center; position: relative; }
-.hero-book img {
-  width: min(300px, 80%); border-radius: 6px;
-  box-shadow: -18px 22px 44px rgba(0, 0, 0, 0.5);
-  transform: perspective(900px) rotateY(-12deg);
-}
-.hero-book .flag {
-  position: absolute; right: 4%; top: -6px;
-  background: var(--gold); color: var(--green-950); font-weight: 900;
-  padding: 0.45rem 0.9rem; border-radius: 8px; font-size: 1.05rem;
-  box-shadow: var(--shadow);
-}
 
 /* Sections */
 .section { padding: 3.4rem 0; }
@@ -58,7 +52,9 @@
 .section .lead { text-align: center; color: var(--muted); max-width: 62ch; margin: 0 auto 2.2rem; }
 
 /* Preview: form mockups */
-.preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; }
+.preview-grid { display: grid; grid-template-columns: 0.85fr repeat(3, 1fr); gap: 1.3rem; align-items: center; }
+.preview-book { text-align: center; }
+.preview-book img { max-width: 100%; filter: drop-shadow(-10px 14px 20px rgba(10, 36, 21, 0.35)); }
 .sheet {
   background: #fff; border: 1px solid var(--line); border-radius: 8px;
   box-shadow: var(--shadow); padding: 1rem 1.1rem; font-size: 0.62rem; color: #333;
@@ -193,6 +189,7 @@
 .footer .fine a { margin: 0; color: #99a698; }
 
 /* Login modal */
+.modal[hidden] { display: none; }
 .modal {
   position: fixed; inset: 0; background: rgba(8, 20, 12, 0.72);
   display: grid; place-items: center; z-index: 90; padding: 1rem;
@@ -212,11 +209,16 @@
 /* Responsive */
 @media (max-width: 960px) {
   .hero h1 { font-size: 2.3rem; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-book { order: -1; }
-  .hero-book img { width: min(220px, 60%); }
+  .hero {
+    background:
+      linear-gradient(rgba(10, 36, 21, 0.86), rgba(10, 36, 21, 0.86)),
+      url('../img/hero-player.jpg') center / cover no-repeat,
+      linear-gradient(115deg, var(--green-950) 0%, var(--green-900) 55%, var(--green-800) 100%);
+  }
+  .hero-inner { max-width: 100%; }
   .tiles { grid-template-columns: repeat(2, 1fr); }
   .preview-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  .preview-book img { max-width: 220px; }
   .inside-grid { grid-template-columns: 1fr; }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .login-grid { grid-template-columns: 1fr; }
