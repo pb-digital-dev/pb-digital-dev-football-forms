@@ -69,10 +69,15 @@ export async function buildServer() {
     ].join('\n');
   });
 
-  // Anything else: JSON 404 for API/media, otherwise hand back the landing page.
+  // Anything else: JSON 404 for API/media, real 404 for asset-like paths
+  // (soft-404s hurt SEO), otherwise hand back the landing page.
   app.setNotFoundHandler(async (req, reply) => {
     if (req.url.startsWith(`${base}/api/`) || req.url.startsWith(`${base}/media/`)) {
       return reply.code(404).send({ error: 'not_found' });
+    }
+    const pathname = req.url.split('?')[0];
+    if (/\.[a-z0-9]{2,5}$/i.test(pathname)) {
+      return reply.code(404).type('text/plain').send('Not found');
     }
     if (req.method === 'GET') {
       return reply.sendFile('index.html');
